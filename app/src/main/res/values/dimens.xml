@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="textSizeCard">22sp</dimen>
+    <dimen name="heightCard">200dp</dimen>
+    <dimen name="widthCard">380dp</dimen>
 </resources>

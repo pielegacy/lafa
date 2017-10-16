@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import org.w3c.dom.Text;
 
 /**
@@ -23,6 +26,11 @@ public class FlashCardFragment extends Fragment {
      * The related object to the fragment
      */
     private FlashCard card;
+
+    /**
+     * Determines which part of the flashcard is visible
+     */
+    private boolean isViewingAnswer = false;
 
     public FlashCardFragment() {
         // Required empty public constructor
@@ -59,6 +67,26 @@ public class FlashCardFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         applyCardDetails(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCardMode(view);
+            }
+        });
+    }
 
+    /**
+     * Set the current contents of the card depending on if the answer is being
+     * viewed or not.
+     *
+     * @param view the view for the fragment
+     */
+    private void setCardMode(View view)
+    {
+        TextView textViewOutput = view.findViewById(R.id.text_view_question);
+        textViewOutput.setText("");
+        YoYo.with(Techniques.Shake).duration(100).playOn(view);
+        textViewOutput.setText((isViewingAnswer = !isViewingAnswer)
+                ? card.getAnswer() : card.getQuestion());
     }
 }
