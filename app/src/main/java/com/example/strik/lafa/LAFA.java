@@ -1,5 +1,11 @@
 package com.example.strik.lafa;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -44,5 +50,25 @@ public final class LAFA {
         {
             return "";
         }
+    }
+
+    /**
+     * Push a flashcard to a view in a FragmentActivity, handling all related
+     * transactions and arguments in the process.
+     *
+     * @param activity the fragment activity (for context purposes)
+     * @param id the id of the output element
+     * @param card the actual flashcard
+     */
+    public static void pushFlashCardToView(FragmentActivity activity, int id, FlashCard card)
+    {
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FlashCardFragment fragment = new FlashCardFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("card", card);
+        fragment.setArguments(args);
+        fragmentTransaction.add(id, fragment);
+        fragmentTransaction.commit();
     }
 }

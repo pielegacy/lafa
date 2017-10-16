@@ -84,9 +84,14 @@ public class FlashCardFragment extends Fragment {
     private void setCardMode(View view)
     {
         TextView textViewOutput = view.findViewById(R.id.text_view_question);
+        TextView textViewExposeAnswer = view.findViewById(R.id.label_expose_answer);
+
         textViewOutput.setText("");
-        YoYo.with(Techniques.Shake).duration(100).playOn(view);
         textViewOutput.setText((isViewingAnswer = !isViewingAnswer)
                 ? card.getAnswer() : card.getQuestion());
+
+//        textViewExposeAnswer.setVisibility(isViewingAnswer ? View.GONE : View.VISIBLE);
+
+        YoYo.with(Techniques.Bounce).duration(120).playOn(view);
     }
 }

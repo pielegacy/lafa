@@ -1,14 +1,9 @@
 package com.example.strik.lafa;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -17,15 +12,14 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        FlashCardFragment fragment = new FlashCardFragment();
-        Bundle args = new Bundle();
-        args.putParcelable("card", new FlashCard(0, "Test", "Answer"));
-        fragment.setArguments(args);
-        fragmentTransaction.add(R.id.layout_output, fragment);
-        fragmentTransaction.commit();
+        FlashCard[] cards = {
+            new FlashCard(0, "Are traps gay?", "Yes."),
+            new FlashCard(1, "Are you sure?", "Yes.")
+        };
 
+        FlashSetManager manager = new FlashSetManager(this, R.id.layout_output,
+                new FlashSet(Arrays.asList(cards), "Test Collection"));
+        manager.pushCardsToList();
         testGson();
     }
 
