@@ -3,4 +3,6 @@
     <dimen name="textSizeCard">22sp</dimen>
     <dimen name="heightCard">200dp</dimen>
     <dimen name="widthCard">380dp</dimen>
+    <dimen name="textSizeHomeHeading">28sp</dimen>
+    <dimen name="listHomeHeight">160dp</dimen>
 </resources>
