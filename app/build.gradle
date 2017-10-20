@@ -33,5 +33,6 @@ dependencies {
     compile 'com.android.support:support-compat:25.1.1'
     compile 'com.daimajia.easing:library:2.0@aar'
     compile 'com.daimajia.androidanimations:library:2.3@aar'
+    compile 'com.android.support:design:26.+'
     testCompile 'junit:junit:4.12'
 }

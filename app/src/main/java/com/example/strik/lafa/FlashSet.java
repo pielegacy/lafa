@@ -63,7 +63,8 @@ public class FlashSet {
     {
         this(set, name, "Me", "", new int[set.size()]);
         int[] orderValues = new int[set.size()];
-        FlashCard[] cardArray = (FlashCard[])set.toArray();
+        FlashCard[] cardArray =  new FlashCard[set.size()];
+        cardArray = set.toArray(cardArray);
         for (int i = 0; i < cardArray.length; i++)
             orderValues[i] = cardArray[i].getId();
         this.order = orderValues;

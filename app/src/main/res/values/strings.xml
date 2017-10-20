@@ -5,4 +5,5 @@
     <string name="label_expose_answer">Tap to see answer</string>
     <string name="heading_library">Library</string>
     <string name="heading_explore">Explore</string>
+    <string name="title_activity_view_flash_set">ViewFlashSetActivity</string>
 </resources>

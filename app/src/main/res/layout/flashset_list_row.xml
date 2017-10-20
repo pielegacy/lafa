@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView_flashSetDetails"
+    android:layout_width="@dimen/listHomeRowWidth"
+    android:layout_height="@dimen/listHomeRowHeight"
+    app:cardBackgroundColor="@color/md_amber_50">
+
+    <TableLayout
+        android:layout_margin="@dimen/flashSetListRowPadding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView_flashSetName"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="4">
+
+            <TextView
+                android:id="@+id/textView_flashSetDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </TableRow>
+    </TableLayout>
+</android.support.v7.widget.CardView>

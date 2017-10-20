@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.strik.lafa.MainActivity">
+    tools:context="com.example.strik.lafa.MainActivity"
+    >
 
     <LinearLayout
         android:id="@+id/layout_output"
@@ -25,6 +26,7 @@
             android:textSize="@dimen/textSizeHomeHeading" />
 
         <android.support.v7.widget.RecyclerView
+            android:scrollbars="horizontal"
             android:orientation="horizontal"
             android:id="@+id/recyclerView_library"
             android:layout_width="match_parent"
@@ -38,12 +40,12 @@
             android:text="@string/heading_explore"
             android:textSize="@dimen/textSizeHomeHeading" />
 
-        <android.support.v7.widget.RecyclerView
-            android:orientation="horizontal"
-            android:id="@+id/recyclerView_explore"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/listHomeHeight"
-            android:scrollbarAlwaysDrawHorizontalTrack="true"/>
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:scrollbars="horizontal"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:id="@+id/recyclerView_explore"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/listHomeHeight"/>-->
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
