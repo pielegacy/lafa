@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity{
     private FlashSet dummyFlashSet()
     {
         ArrayList<FlashCard> flashCards = new ArrayList<>();
-        flashCards.add(new FlashCard(1, "Q1", "A1"));
-        flashCards.add(new FlashCard(2, "Q2", "A2"));
-        flashCards.add(new FlashCard(3, "Q3", "A3"));
+        flashCards.add(new FlashCard(0, "Q1", "A1"));
+        flashCards.add(new FlashCard(1, "Q2", "A2"));
+        flashCards.add(new FlashCard(2, "Q3", "A3"));
         return new FlashSet(flashCards, "Test Flash Set");
     }
 }

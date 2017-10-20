@@ -1,13 +1,16 @@
 package com.example.strik.lafa;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * A collection of FlashCards with associated meta data
  */
-public class FlashSet {
+public class FlashSet implements Parcelable {
 
     /**
      * The collection of flashcards you're working with
@@ -37,14 +40,13 @@ public class FlashSet {
     /**
      * The constructor for all the properties.
      *
-     * @param set the set of flashcards
-     * @param name the name of the set
+     * @param set    the set of flashcards
+     * @param name   the name of the set
      * @param author the author
-     * @param url the URL for reference
-     * @param order the order of the cards
+     * @param url    the URL for reference
+     * @param order  the order of the cards
      */
-    public FlashSet(Collection<FlashCard> set, String name, String author, String url, int[] order)
-    {
+    public FlashSet(Collection<FlashCard> set, String name, String author, String url, int[] order) {
         this.set = set;
         this.order = order;
         this.name = name;
@@ -56,14 +58,13 @@ public class FlashSet {
      * Construct a new FlashSet from a collection of flashcards
      * and a name. Infer the order, author and URL of the set.
      *
-     * @param set the set of flashcards
+     * @param set  the set of flashcards
      * @param name the name of the set
      */
-    public FlashSet(Collection<FlashCard> set, String name)
-    {
+    public FlashSet(Collection<FlashCard> set, String name) {
         this(set, name, "Me", "", new int[set.size()]);
         int[] orderValues = new int[set.size()];
-        FlashCard[] cardArray =  new FlashCard[set.size()];
+        FlashCard[] cardArray = new FlashCard[set.size()];
         cardArray = set.toArray(cardArray);
         for (int i = 0; i < cardArray.length; i++)
             orderValues[i] = cardArray[i].getId();
@@ -72,6 +73,7 @@ public class FlashSet {
 
     /**
      * Get the set of cards in an unordered form
+     *
      * @return
      */
     public ArrayList<FlashCard> getSet() {
@@ -84,7 +86,8 @@ public class FlashSet {
      * @return
      */
     public ArrayList<FlashCard> getSetOrdered() {
-        FlashCard[] cardArray = (FlashCard[])set.toArray();
+        FlashCard[] cardArray = new FlashCard[set.size()];
+        cardArray = set.toArray(cardArray);
         ArrayList<FlashCard> result = new ArrayList<>();
         for (int i = 0; i < cardArray.length; i++)
             result.add(cardArray[order[i]]);
@@ -106,4 +109,40 @@ public class FlashSet {
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeList(new ArrayList<>(this.set));
+        parcel.writeString(this.name);
+        parcel.writeString(this.author);
+        parcel.writeString(this.url);
+        parcel.writeIntArray(this.order);
+    }
+
+    public static final Parcelable.Creator<FlashSet> CREATOR = new Parcelable.Creator<FlashSet>() {
+        @Override
+        public FlashSet createFromParcel(Parcel parcel) {
+            return new FlashSet(parcel);
+        }
+
+        @Override
+        public FlashSet[] newArray(int i) {
+            return new FlashSet[i];
+        }
+    };
+
+    public FlashSet(Parcel parcel) {
+        this.set = parcel.readArrayList(FlashCard.class.getClassLoader());
+        this.name = parcel.readString();
+        this.author = parcel.readString();
+        this.url = parcel.readString();
+        this.order = new int[this.set.size()];
+        parcel.readIntArray(this.order);
+    }
+
 }

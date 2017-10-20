@@ -1,6 +1,7 @@
 package com.example.strik.lafa;
 
 
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,7 +49,7 @@ public class FlashSetRecyclerAdapter
 
     @Override
     public void onBindViewHolder(FlashSetViewHolder holder, int position) {
-        FlashSet flashSet = flashSetList.get(position);
+        final FlashSet flashSet = flashSetList.get(position);
         holder.textViewFlashSetName.setText(flashSet.getName());
         holder.textViewFlashSetDetails.setText(
                 "Created by " + flashSet.getAuthor() + "\n" +
@@ -57,7 +58,9 @@ public class FlashSetRecyclerAdapter
         holder.cardViewFlashSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Test", Toast.LENGTH_LONG).show();
+                Intent navIntent = new Intent(view.getContext(), ViewFlashSetActivity.class);
+                navIntent.putExtra("data", flashSet);
+                view.getContext().startActivity(navIntent);
             }
         });
     }

@@ -42,6 +42,28 @@ public class FlashSetManager {
         }
     }
 
+    /**
+     * Push a specific card to a list.
+     * @param index the index of the card to push
+     */
+    public void pushCardToList(int index)
+    {
+        if (index < 0 || index >= this.set.getSetOrdered().size())
+            index = 0;
+        LAFA.pushFlashCardToView(this.activity, this.id, this.set.getSetOrdered().get(index));
+    }
+
+    /**
+     * Push a specific card to a list.
+     * @param index the index of the card to push
+     */
+    public void replaceCardInList(int index)
+    {
+        if (index < 0 || index >= this.set.getSetOrdered().size())
+            index = 0;
+        LAFA.replaceFlashCardInView(this.activity, this.id, this.set.getSetOrdered().get(index));
+    }
+
     // TODO: Use fragment manager
 
 

@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ViewFlashSetActivity"
+            android:label="@string/title_activity_view_flash_set"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
