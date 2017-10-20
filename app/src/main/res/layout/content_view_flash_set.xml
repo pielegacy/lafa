@@ -4,10 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_flashset"
     android:orientation="vertical"
+    android:gravity="center_vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.strik.lafa.ViewFlashSetActivity"
     tools:showIn="@layout/activity_view_flash_set">
+    <TextView
+        android:id="@+id/textView_flashSetCurrentIndex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/layout_flashset"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:columnCount="3">
+        <ImageButton
+            android:id="@+id/button_shuffle"
+            style="@style/FlashSetButton"
+            android:contentDescription="@string/button_label_share"
+            android:background="@mipmap/ic_shuffle"
+            />
+        <Space
+            android:layout_width="@dimen/flashSetButtonListSpacing"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/button_share"
+            style="@style/FlashSetButton"
+            android:contentDescription="@string/button_label_share"
+            android:background="@mipmap/ic_share"
+            />
+    </LinearLayout>
 
 </LinearLayout>

@@ -5,7 +5,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import static java.util.Collections.list;
+import static java.util.Collections.shuffle;
 
 /**
  * A collection of FlashCards with associated meta data
@@ -74,7 +80,7 @@ public class FlashSet implements Parcelable {
     /**
      * Get the set of cards in an unordered form
      *
-     * @return
+     * @return the pure set of FlashCards
      */
     public ArrayList<FlashCard> getSet() {
         return new ArrayList<>(set);
@@ -83,7 +89,7 @@ public class FlashSet implements Parcelable {
     /**
      * Get the set of flashcards in the correct order
      *
-     * @return
+     * @return the ordered set of FlashCards
      */
     public ArrayList<FlashCard> getSetOrdered() {
         FlashCard[] cardArray = new FlashCard[set.size()];
@@ -92,6 +98,23 @@ public class FlashSet implements Parcelable {
         for (int i = 0; i < cardArray.length; i++)
             result.add(cardArray[order[i]]);
         return result;
+    }
+
+    /**
+     * Shuffle the set of FlashCards, return it.
+     *
+     * @return the shuffled set
+     */
+    public ArrayList<FlashCard> shuffleSet()
+    {
+        FlashCard[] cardArray = new FlashCard[set.size()];
+        cardArray = set.toArray(cardArray);
+        List<FlashCard> cardList = Arrays.asList(cardArray);
+        Collections.shuffle(cardList);
+        for (int i = 0; i < cardList.size(); i++) {
+            order[i] = cardList.get(i).getId();
+        }
+        return this.getSetOrdered();
     }
 
     public int[] getOrder() {

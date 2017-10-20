@@ -34,7 +34,7 @@ public class FlashSetManager {
     /**
      * Push the cards to the view
      */
-    public void pushCardsToList()
+    public void populateCardList()
     {
         for (FlashCard card:
              this.set.getSetOrdered()) {
@@ -46,22 +46,90 @@ public class FlashSetManager {
      * Push a specific card to a list.
      * @param index the index of the card to push
      */
-    public void pushCardToList(int index)
+    public void pushCard(int index)
     {
         if (index < 0 || index >= this.set.getSetOrdered().size())
-            index = 0;
-        LAFA.pushFlashCardToView(this.activity, this.id, this.set.getSetOrdered().get(index));
+           this.index = 0;
+        LAFA.pushFlashCardToView(
+                this.activity, this.id, this.set.getSetOrdered().get(this.index = index));
     }
 
     /**
      * Push a specific card to a list.
      * @param index the index of the card to push
      */
-    public void replaceCardInList(int index)
+    public void replaceCard(int index)
     {
-        if (index < 0 || index >= this.set.getSetOrdered().size())
-            index = 0;
-        LAFA.replaceFlashCardInView(this.activity, this.id, this.set.getSetOrdered().get(index));
+        if (this.index < 0 || this.index >= this.set.getSetOrdered().size())
+            this.index = 0;
+        LAFA.replaceFlashCardInView(
+                this.activity, this.id, this.set.getSetOrdered().get(this.index = index));
+    }
+
+    /**
+     * Shuffle the set and display the first card in the collection
+     */
+    public void shuffleCards()
+    {
+        this.set.shuffleSet();
+        LAFA.replaceFlashCardInView(
+                this.activity, this.id, this.set.getSetOrdered().get(this.index = 0));
+    }
+
+    /**
+     * Push the next card in the set
+     * @return whether or not the push was successful
+     */
+    public boolean nextCard()
+    {
+        boolean result = this.index < (this.set.getSetOrdered().size() - 1);
+        if (result)
+            LAFA.replaceFlashCardInView(
+                    this.activity, this.id, this.set.getSetOrdered().get(++this.index));
+        return result;
+    }
+
+    /**
+     * Push the previous card in the set
+     * @return whether or not the push was successful
+     */
+    public boolean previousCard()
+    {
+        boolean result = this.index > 0;
+        if (result)
+            LAFA.replaceFlashCardInView(
+                    this.activity, this.id, this.set.getSetOrdered().get(--this.index));
+        return result;
+    }
+
+    /**
+     * Get the current index of the set
+     *
+     * @return the index in a readable format
+     */
+    public int getIndex()
+    {
+        return this.index + 1;
+    }
+
+    /**
+     * Get the size of the set
+     * @return
+     */
+    public int getSetSize()
+    {
+        return this.set.getSet().size();
+    }
+
+    /**
+     * Get a readable representation of the current
+     * card in the set the user is up to.
+     *
+     * @return "index of size" as a string
+     */
+    public String getSetLabel()
+    {
+        return getIndex() + " of " + getSetSize();
     }
 
     // TODO: Use fragment manager

@@ -17,4 +17,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="FlashSetButton">
+        <item name="android:layout_marginHorizontal">25dp</item>
+        <item name="android:layout_marginVertical">2dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">80dp</item>
+    </style>
+
 </resources>

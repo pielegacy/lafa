@@ -8,5 +8,6 @@
     <dimen name="listHomeRowHeight">140dp</dimen>
     <dimen name="listHomeRowWidth">120dp</dimen>
     <dimen name="flashSetListRowPadding">6dp</dimen>
+    <dimen name="flashSetButtonListSpacing">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>

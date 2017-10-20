@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.Gson;
 
 /**
@@ -83,7 +85,6 @@ public final class LAFA {
         args.putParcelable("card", card);
         fragment.setArguments(args);
         fragmentTransaction.replace(id, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 }
