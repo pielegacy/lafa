@@ -24,4 +24,34 @@
         <item name="android:layout_width">80dp</item>
     </style>
 
+    <style name="FormElement">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+    </style>
+
+    <style name="FormLabel" parent="FormElement">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_row">0</item>
+    </style>
+
+    <style name="FormTextInput" parent="FormElement">
+        <item name="android:textSize">22sp</item>
+        <item name="android:layout_row">1</item>
+    </style>
+
+    <style name="FormDescription" parent="FormElement">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_row">2</item>
+    </style>
+
+    <style name="FormTriElementGrid">
+        <item name="android:rowCount">3</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:layout_marginVertical">24dp</item>-->
+    </style>
+
 </resources>

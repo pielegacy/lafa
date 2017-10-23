@@ -10,4 +10,6 @@
     <dimen name="flashSetListRowPadding">6dp</dimen>
     <dimen name="flashSetButtonListSpacing">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="form_gridSpacing">20dp</dimen>
 </resources>

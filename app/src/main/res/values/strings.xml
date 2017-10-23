@@ -8,4 +8,11 @@
     <string name="button_label_share">Share FlashSet</string>
     <string name="menu_label_new">New</string>
     <string name="title_activity_create_flash_set">Create Flash Set</string>
+    <string name="label_title">Title</string>
+    <string name="label_author">Author</string>
+    <string name="desc_title">
+        The title of the FlashSet. This should be concise but describe the set\'s
+        contents.
+    </string>
+    <string name="desc_author">The author of the set (yourself).</string>
 </resources>
