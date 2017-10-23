@@ -23,7 +23,7 @@ public class CreateFlashSetActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (isFormValid()) {
-                            Intent submitFormIntent = new Intent(view.getContext(), MainActivity.class);
+                            Intent submitFormIntent = new Intent(view.getContext(), ModifyFlashSetActivity.class);
                             submitFormIntent.putExtra("data", getFormData());
                             startActivity(submitFormIntent);
                         }

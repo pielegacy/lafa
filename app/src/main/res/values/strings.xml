@@ -19,4 +19,8 @@
     <string name="dialog_share_opt_link">Link</string>
     <string name="dialog_share_opt_data">Data</string>
     <string name="dialog_share_opt_cancel">Cancel</string>
+    <string name="label_new_card">Question</string>
+    <string name="label_answer">Answer</string>
+    <string name="desc_add_flashcard">Add FlashCard</string>
+    <string name="desc_preview">Preview</string>
 </resources>
