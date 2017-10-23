@@ -26,7 +26,7 @@ public class FlashSet implements Parcelable {
     /**
      * The order of the flashcards
      */
-    private int[] order;
+    private ArrayList<Integer> order;
 
     /**
      * The name of the flashset
@@ -52,7 +52,7 @@ public class FlashSet implements Parcelable {
      * @param url    the URL for reference
      * @param order  the order of the cards
      */
-    public FlashSet(Collection<FlashCard> set, String name, String author, String url, int[] order) {
+    public FlashSet(Collection<FlashCard> set, String name, String author, String url, ArrayList<Integer> order) {
         this.set = set;
         this.order = order;
         this.name = name;
@@ -68,13 +68,12 @@ public class FlashSet implements Parcelable {
      * @param name the name of the set
      */
     public FlashSet(Collection<FlashCard> set, String name) {
-        this(set, name, "Me", "", new int[set.size()]);
+        this(set, name, "Me", "", new ArrayList<Integer>());
         int[] orderValues = new int[set.size()];
         FlashCard[] cardArray = new FlashCard[set.size()];
         cardArray = set.toArray(cardArray);
         for (int i = 0; i < cardArray.length; i++)
-            orderValues[i] = cardArray[i].getId();
-        this.order = orderValues;
+            this.order.add(cardArray[i].getId());
     }
 
     /**
@@ -96,7 +95,7 @@ public class FlashSet implements Parcelable {
         cardArray = set.toArray(cardArray);
         ArrayList<FlashCard> result = new ArrayList<>();
         for (int i = 0; i < cardArray.length; i++)
-            result.add(cardArray[order[i]]);
+            result.add(cardArray[order.get(i)]);
         return result;
     }
 
@@ -111,7 +110,7 @@ public class FlashSet implements Parcelable {
         List<FlashCard> cardList = Arrays.asList(cardArray);
         Collections.shuffle(cardList);
         for (int i = 0; i < cardList.size(); i++) {
-            order[i] = cardList.get(i).getId();
+            order.set(i, cardList.get(i).getId());
         }
         return this.getSetOrdered();
     }
@@ -126,9 +125,10 @@ public class FlashSet implements Parcelable {
         if (flashCard.getId() == -1)
             flashCard.setId(set.size());
         set.add(flashCard);
+        order.add(flashCard.getId());
     }
 
-    public int[] getOrder() {
+    public ArrayList<Integer> getOrder() {
         return order;
     }
 
@@ -159,7 +159,7 @@ public class FlashSet implements Parcelable {
         parcel.writeString(this.name);
         parcel.writeString(this.author);
         parcel.writeString(this.url);
-        parcel.writeIntArray(this.order);
+        parcel.writeList(this.order);
     }
 
     public static final Parcelable.Creator<FlashSet> CREATOR = new Parcelable.Creator<FlashSet>() {
@@ -179,8 +179,8 @@ public class FlashSet implements Parcelable {
         this.name = parcel.readString();
         this.author = parcel.readString();
         this.url = parcel.readString();
-        this.order = new int[this.set.size()];
-        parcel.readIntArray(this.order);
+        this.order = new ArrayList<>();
+        this.order = parcel.readArrayList(this.order.getClass().getClassLoader());
     }
 
 }

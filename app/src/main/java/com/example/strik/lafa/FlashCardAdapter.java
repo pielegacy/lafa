@@ -28,7 +28,7 @@ public class FlashCardAdapter extends ArrayAdapter<FlashCard> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.flashcard_list_row, parent);
+                    .inflate(R.layout.flashcard_list_row, parent, false);
         }
 
         TextView textViewFlashCardQuestion =

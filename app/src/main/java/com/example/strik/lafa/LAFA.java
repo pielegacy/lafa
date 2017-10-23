@@ -96,7 +96,7 @@ public final class LAFA {
         try {
             return gson.fromJson(json, FlashSet.class);
         } catch (Exception e) {
-            return new FlashSet(new ArrayList<FlashCard>(), "", "", "", new int[0]);
+            return new FlashSet(new ArrayList<FlashCard>(), "", "", "", new ArrayList<Integer>());
         }
     }
 
