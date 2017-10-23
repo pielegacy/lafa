@@ -12,6 +12,8 @@
     <TextView
         android:id="@+id/textView_flashSetCurrentIndex"
         android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:layout_height="wrap_content" />
     <GridLayout
         android:layout_width="match_parent"

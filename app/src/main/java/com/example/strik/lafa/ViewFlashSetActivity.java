@@ -43,6 +43,7 @@ public class ViewFlashSetActivity extends AppCompatActivity {
                 flashSetManager.shuffleCards();
                 Snackbar.make(findViewById(R.id.layout_flashset),
                         "Shuffled FlashSet...", Snackbar.LENGTH_SHORT).show();
+                applyFlashCardData();
             }
         });
     }
@@ -71,15 +72,7 @@ public class ViewFlashSetActivity extends AppCompatActivity {
         flashSetManager = new FlashSetManager(this, R.id.layout_flashset, flashSet);
         flashSetManager.pushCard(0);
         setTitle(this.flashSet.getName());
-
-        GridLayout layoutFlashSet = (GridLayout)findViewById(R.id.layout_flashset);
-        layoutFlashSet.setOnDragListener(new View.OnDragListener() {
-            @Override
-            public boolean onDrag(View view, DragEvent dragEvent) {
-                Toast.makeText(getApplicationContext(), "Works", Toast.LENGTH_LONG).show();
-                return false;
-            }
-        });
+        applyFlashCardData();
     }
 
     TouchTypeDetector.TouchTypListener touchTypListener = new TouchTypeDetector.TouchTypListener() {

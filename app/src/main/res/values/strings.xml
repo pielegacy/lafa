@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">LAFA</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_expose_answer">Tap to see answer</string>
     <string name="heading_library">Library</string>
     <string name="heading_explore">Explore</string>
     <string name="title_activity_view_flash_set">ViewFlashSetActivity</string>
     <string name="button_label_share">Share FlashSet</string>
+    <string name="menu_label_new">New</string>
+    <string name="title_activity_create_flash_set">Create Flash Set</string>
 </resources>
