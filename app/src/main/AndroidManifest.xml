@@ -23,5 +23,7 @@
             android:label="@string/title_activity_view_flash_set"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CreateFlashSetActivity" />
+        <activity android:name=".ModifyFlashSetActivity"></activity>
     </application>
+
 </manifest>

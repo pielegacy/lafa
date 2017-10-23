@@ -7,16 +7,21 @@
     tools:context="com.example.strik.lafa.CreateFlashSetActivity">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:id="@+id/layout_createForm_first"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1">
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp">
 
         <GridLayout style="@style/FormTriElementGrid">
 
@@ -58,11 +63,15 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_home_add"
+        android:id="@+id/fab_create_flash_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/ic_next"
         app:backgroundTint="@color/colorFab"
-        android:elevation="4dp"/>
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_createForm_first"
+        app:layout_constraintRight_toRightOf="@+id/layout_createForm_first"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
 </android.support.constraint.ConstraintLayout>
