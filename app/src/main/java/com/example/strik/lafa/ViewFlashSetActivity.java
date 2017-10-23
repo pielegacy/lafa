@@ -2,6 +2,7 @@ package com.example.strik.lafa;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.DragEvent;
@@ -31,10 +32,8 @@ public class ViewFlashSetActivity extends AppCompatActivity {
         if (getIntent().getExtras().getParcelable("data") != null)
             loadFlashSet((FlashSet)getIntent().getExtras().getParcelable("data"));
         else
-        {
             Snackbar.make(findViewById(R.id.layout_flashset),
                     "Invalid FlashSet Passed", Snackbar.LENGTH_SHORT).show();
-        }
 
         ImageButton buttonShuffle = (ImageButton)findViewById(R.id.button_shuffle);
         buttonShuffle.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +43,13 @@ public class ViewFlashSetActivity extends AppCompatActivity {
                 Snackbar.make(findViewById(R.id.layout_flashset),
                         "Shuffled FlashSet...", Snackbar.LENGTH_SHORT).show();
                 applyFlashCardData();
+            }
+        });
+
+        ImageButton buttonShare = (ImageButton)findViewById(R.id.button_share);
+        buttonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
     }

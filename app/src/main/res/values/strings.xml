@@ -15,4 +15,8 @@
         contents.
     </string>
     <string name="desc_author">The author of the set (yourself).</string>
+    <string name="dialog_share_type">Share Data or Link?</string>
+    <string name="dialog_share_opt_link">Link</string>
+    <string name="dialog_share_opt_data">Data</string>
+    <string name="dialog_share_opt_cancel">Cancel</string>
 </resources>
