@@ -35,5 +35,7 @@ dependencies {
     compile 'com.daimajia.androidanimations:library:2.3@aar'
     compile 'com.android.support:design:26.+'
     compile 'com.github.nisrulz:sensey:1.7.0'
+    compile 'com.squareup.okio:okio:1.13.0'
+//    compile 'com.squareup.okhttp3:okhttp:3.9.0'
     testCompile 'junit:junit:4.12'
 }

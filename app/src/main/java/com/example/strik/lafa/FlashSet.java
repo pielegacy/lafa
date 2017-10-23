@@ -105,8 +105,7 @@ public class FlashSet implements Parcelable {
      *
      * @return the shuffled set
      */
-    public ArrayList<FlashCard> shuffleSet()
-    {
+    public ArrayList<FlashCard> shuffleSet() {
         FlashCard[] cardArray = new FlashCard[set.size()];
         cardArray = set.toArray(cardArray);
         List<FlashCard> cardList = Arrays.asList(cardArray);
@@ -131,6 +130,10 @@ public class FlashSet implements Parcelable {
 
     public String getUrl() {
         return url;
+    }
+
+    public void setUrl(String value) {
+        url = value;
     }
 
     @Override

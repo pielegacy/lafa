@@ -50,6 +50,7 @@ public class ViewFlashSetActivity extends AppCompatActivity {
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LAFA.shareFlashSet(view.getContext(), flashSet);
             }
         });
     }
