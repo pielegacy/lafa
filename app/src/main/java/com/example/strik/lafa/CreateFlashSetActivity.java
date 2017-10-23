@@ -55,7 +55,9 @@ public class CreateFlashSetActivity extends AppCompatActivity {
      * @return
      */
     private FlashSet getFormData() {
-        return new FlashSet(new ArrayList<FlashCard>(),
+        ArrayList<FlashCard> list = new ArrayList<>();
+        list.add(new FlashCard(0, "Q", "A"));
+        return new FlashSet(list,
                 ((EditText) findViewById(R.id.editText_set_title)).getText().toString(),
                 ((EditText) findViewById(R.id.editText_set_author)).getText().toString(),
                 "",

@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:rowCount="2"
     tools:context="com.example.strik.lafa.ModifyFlashSetActivity">
 
     <android.support.v7.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="@dimen/heightCard"
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_row="0"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        app:cardBackgroundColor="@color/md_amber_50"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1">
+        android:layout_marginStart="8dp">
 
         <GridLayout
             android:layout_width="match_parent"
@@ -29,33 +26,34 @@
             android:rowCount="5">
 
             <TextView
-                android:layout_row="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_row="0"
                 android:text="@string/label_new_card"
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/editText_card_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_row="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:textSize="22sp"
-                />
+                android:textSize="22sp" />
+
             <TextView
-                android:layout_row="2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_row="2"
                 android:text="@string/label_answer"
                 android:textSize="18sp" />
 
             <EditText
-                android:layout_row="3"
+                android:id="@+id/editText_card_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_row="3"
                 android:inputType="textMultiLine"
-                android:textSize="22sp"
-                />
+                android:textSize="22sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,6 +70,7 @@
                     android:src="@drawable/ic_preview" />
 
                 <ImageButton
+                    android:id="@+id/button_add_flashcard"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:background="@null"
@@ -81,4 +80,10 @@
         </GridLayout>
     </android.support.v7.widget.CardView>
 
-</android.support.constraint.ConstraintLayout>
+    <ListView
+        android:id="@+id/list_flashCardsModify"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_row="1"/>
+
+</GridLayout>

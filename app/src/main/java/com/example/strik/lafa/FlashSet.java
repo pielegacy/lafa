@@ -116,6 +116,18 @@ public class FlashSet implements Parcelable {
         return this.getSetOrdered();
     }
 
+    /**
+     * Push a FlashCard to the set, updating the ID if necessary.
+     *
+     * @param flashCard the FlashCard we're adding
+     */
+    public void pushFlashCard(FlashCard flashCard)
+    {
+        if (flashCard.getId() == -1)
+            flashCard.setId(set.size());
+        set.add(flashCard);
+    }
+
     public int[] getOrder() {
         return order;
     }
