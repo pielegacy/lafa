@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:rowCount="2"
+    android:id="@+id/layout_modifyFlashSet"
     tools:context="com.example.strik.lafa.ModifyFlashSetActivity">
 
     <android.support.v7.widget.CardView

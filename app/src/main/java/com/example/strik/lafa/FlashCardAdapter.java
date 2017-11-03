@@ -33,8 +33,11 @@ public class FlashCardAdapter extends ArrayAdapter<FlashCard> {
 
         TextView textViewFlashCardQuestion =
                 convertView.findViewById(R.id.textView_flashCardQuestion);
+        TextView textViewFlashCardAnswer =
+                convertView.findViewById(R.id.textView_flashCardAnswer);
 
         textViewFlashCardQuestion.setText(flashCard.getQuestion());
+        textViewFlashCardAnswer.setText(flashCard.getAnswer());
 
         return convertView;
     }

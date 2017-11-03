@@ -49,13 +49,12 @@ public class MainActivity extends AppCompatActivity{
      */
     private void populateFlashSets()
     {
-        ArrayList<FlashSet> arrayListFlashSet = new ArrayList<>();
-        arrayListFlashSet.add(dummyFlashSet());
+        LAFA.addFlashSet(dummyFlashSet());
 
         RecyclerView recyclerViewLibrary = (RecyclerView)findViewById(R.id.recyclerView_library);
 
         FlashSetRecyclerAdapter flashSetRecyclerAdapterLibrary
-                = new FlashSetRecyclerAdapter(arrayListFlashSet);
+                = new FlashSetRecyclerAdapter(LAFA.getAppSets());
         recyclerViewLibrary.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
         recyclerViewLibrary.setItemAnimator(new DefaultItemAnimator());

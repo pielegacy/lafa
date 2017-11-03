@@ -59,6 +59,11 @@ public final class LAFA {
     private static Gson gson = new Gson();
 
     /**
+     * Static set of FlashSets used by the application.
+     */
+    private static ArrayList<FlashSet> appSets = new ArrayList<>();
+
+    /**
      * Create a new FlashCard from a JSON string
      *
      * @param json the json string containing the FlashCard
@@ -216,5 +221,24 @@ public final class LAFA {
         fragment.setArguments(args);
         fragmentTransaction.replace(id, fragment);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * Add a FlashSet to the global collection of FlashSets
+     *
+     * @param flashSet
+     */
+    public static void addFlashSet(FlashSet flashSet)
+    {
+        appSets.add(flashSet);
+    }
+
+    /**
+     * Get the current state of the AppSet
+     * @return
+     */
+    public static ArrayList<FlashSet> getAppSets()
+    {
+        return appSets;
     }
 }
