@@ -24,4 +24,5 @@
     <string name="desc_add_flashcard">Add FlashCard</string>
     <string name="desc_preview">Preview</string>
     <string name="label_menu_save">Save</string>
+    <string name="vertical_ellipsis">&#8942;</string>
 </resources>
