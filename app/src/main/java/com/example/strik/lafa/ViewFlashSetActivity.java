@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.DragEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
@@ -20,55 +22,49 @@ public class ViewFlashSetActivity extends AppCompatActivity {
 
     private FlashSet flashSet;
     private FlashSetManager flashSetManager;
+    private LAFASpeech lafaSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Sensey.getInstance().init(this);
-        Sensey.getInstance().startTouchTypeDetection(this ,touchTypListener);
+        Sensey.getInstance().startTouchTypeDetection(this, touchTypListener);
         setContentView(R.layout.activity_view_flash_set);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getIntent().getExtras().getParcelable("data") != null)
-            loadFlashSet((FlashSet)getIntent().getExtras().getParcelable("data"));
+            loadFlashSet((FlashSet) getIntent().getExtras().getParcelable("data"));
         else
             Snackbar.make(findViewById(R.id.layout_flashset),
                     "Invalid FlashSet Passed", Snackbar.LENGTH_SHORT).show();
+    }
 
-        ImageButton buttonShuffle = (ImageButton)findViewById(R.id.button_shuffle);
-        buttonShuffle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_flashset, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_share:
+                Snackbar.make(findViewById(R.id.layout_flashset),
+                        "Uploading & Sharing FlashSet...", Snackbar.LENGTH_LONG).show();
+                LAFA.shareFlashSet(this, flashSet);
+                return true;
+            case R.id.menu_item_shuffle:
                 flashSetManager.shuffleCards();
                 Snackbar.make(findViewById(R.id.layout_flashset),
                         "Shuffled FlashSet...", Snackbar.LENGTH_SHORT).show();
                 applyFlashCardData();
-            }
-        });
-        buttonShuffle.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Toast.makeText(view.getContext(), "Shuffle", Toast.LENGTH_SHORT).show();
                 return true;
-            }
-        });
-
-        ImageButton buttonShare = (ImageButton)findViewById(R.id.button_share);
-        buttonShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(findViewById(R.id.layout_flashset),
-                        "Uploading & Sharing FlashSet...", Snackbar.LENGTH_LONG).show();
-                LAFA.shareFlashSet(view.getContext(), flashSet);
-            }
-        });
-        buttonShare.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Toast.makeText(view.getContext(), "Share", Toast.LENGTH_SHORT).show();
+            case R.id.menu_item_listen:
+                lafaSpeech.speak(flashSetManager.getCurrentCard().getQuestion());
                 return true;
-            }
-        });
+            default:
+                return false;
+        }
     }
 
     @Override
@@ -80,22 +76,23 @@ public class ViewFlashSetActivity extends AppCompatActivity {
     /**
      * Apply the data of the FlashCard to the view
      */
-    private void applyFlashCardData()
-    {
-        ((TextView)findViewById(R.id.textView_flashSetCurrentIndex))
+    private void applyFlashCardData() {
+        ((TextView) findViewById(R.id.textView_flashSetCurrentIndex))
                 .setText(flashSetManager.getSetLabel());
     }
+
     /**
      * Load the data of a FlashSet into the current Activity
+     *
      * @param flashSet the set of flashcards being passed through
      */
-    private void loadFlashSet(FlashSet flashSet)
-    {
+    private void loadFlashSet(FlashSet flashSet) {
         this.flashSet = flashSet;
         flashSetManager = new FlashSetManager(this, R.id.layout_flashset, flashSet);
         flashSetManager.pushCard(0);
         setTitle(this.flashSet.getName());
         applyFlashCardData();
+        lafaSpeech = new LAFASpeech(this);
     }
 
     TouchTypeDetector.TouchTypListener touchTypListener = new TouchTypeDetector.TouchTypListener() {
@@ -126,8 +123,8 @@ public class ViewFlashSetActivity extends AppCompatActivity {
 
         @Override
         public void onSwipe(int i) {
-            GridLayout layoutFlashSet = (GridLayout)findViewById(R.id.layout_flashset);
-            switch (i){
+            GridLayout layoutFlashSet = (GridLayout) findViewById(R.id.layout_flashset);
+            switch (i) {
                 case TouchTypeDetector.SWIPE_DIR_RIGHT:
                     flashSetManager.previousCard();
                     applyFlashCardData();
@@ -145,10 +142,10 @@ public class ViewFlashSetActivity extends AppCompatActivity {
         }
     };
 
-        @Override
-        public boolean dispatchTouchEvent(MotionEvent event) {
-            // Setup onTouchEvent for detecting type of touch gesture
-            Sensey.getInstance().setupDispatchTouchEvent(event);
-            return super.dispatchTouchEvent(event);
-        }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        // Setup onTouchEvent for detecting type of touch gesture
+        Sensey.getInstance().setupDispatchTouchEvent(event);
+        return super.dispatchTouchEvent(event);
+    }
 }

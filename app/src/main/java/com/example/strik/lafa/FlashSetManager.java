@@ -103,6 +103,15 @@ public class FlashSetManager {
     }
 
     /**
+     * Get the card at the current index of the flashset.
+     * @return the flashcard at the current index.
+     */
+    public FlashCard getCurrentCard()
+    {
+        return set.getSet().get(this.index);
+    }
+
+    /**
      * Get the current index of the set
      *
      * @return the index in a readable format

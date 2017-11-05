@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_item_shuffle"
+        android:title="@string/label_menu_shuffle"
+        android:icon="@drawable/ic_set_shuffle"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_item_listen"
+        android:title="@string/label_menu_listen"
+        android:icon="@drawable/ic_listen"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_item_share"
+        android:title="@string/label_menu_share"
+        android:icon="@drawable/ic_set_share"
+        app:showAsAction="ifRoom"/>
+</menu>
