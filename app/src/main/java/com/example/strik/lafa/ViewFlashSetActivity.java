@@ -45,12 +45,28 @@ public class ViewFlashSetActivity extends AppCompatActivity {
                 applyFlashCardData();
             }
         });
+        buttonShuffle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(view.getContext(), "Shuffle", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
         ImageButton buttonShare = (ImageButton)findViewById(R.id.button_share);
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Snackbar.make(findViewById(R.id.layout_flashset),
+                        "Uploading & Sharing FlashSet...", Snackbar.LENGTH_LONG).show();
                 LAFA.shareFlashSet(view.getContext(), flashSet);
+            }
+        });
+        buttonShare.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(view.getContext(), "Share", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
     }

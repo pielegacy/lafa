@@ -70,8 +70,7 @@ public class FlashSet implements Parcelable {
     public FlashSet(Collection<FlashCard> set, String name) {
         this(set, name, "Me", "", new ArrayList<Integer>());
         int[] orderValues = new int[set.size()];
-        FlashCard[] cardArray = new FlashCard[set.size()];
-        cardArray = set.toArray(cardArray);
+        FlashCard[] cardArray = getSetArray();
         for (int i = 0; i < cardArray.length; i++)
             this.order.add(cardArray[i].getId());
     }
@@ -91,8 +90,7 @@ public class FlashSet implements Parcelable {
      * @return the ordered set of FlashCards
      */
     public ArrayList<FlashCard> getSetOrdered() {
-        FlashCard[] cardArray = new FlashCard[set.size()];
-        cardArray = set.toArray(cardArray);
+        FlashCard[] cardArray = getSetArray();
         ArrayList<FlashCard> result = new ArrayList<>();
         for (int i = 0; i < cardArray.length; i++)
             result.add(cardArray[order.get(i)]);
@@ -105,8 +103,7 @@ public class FlashSet implements Parcelable {
      * @return the shuffled set
      */
     public ArrayList<FlashCard> shuffleSet() {
-        FlashCard[] cardArray = new FlashCard[set.size()];
-        cardArray = set.toArray(cardArray);
+        FlashCard[] cardArray = getSetArray();
         List<FlashCard> cardList = Arrays.asList(cardArray);
         Collections.shuffle(cardList);
         for (int i = 0; i < cardList.size(); i++) {
@@ -115,6 +112,16 @@ public class FlashSet implements Parcelable {
         return this.getSetOrdered();
     }
 
+    /**
+     * Get the set as an array rather than a collection
+     * @return
+     */
+    private FlashCard[] getSetArray()
+    {
+        FlashCard[] cardArray = new FlashCard[set.size()];
+        cardArray = set.toArray(cardArray);
+        return cardArray;
+    }
     /**
      * Push a FlashCard to the set, updating the ID if necessary.
      *
@@ -181,6 +188,37 @@ public class FlashSet implements Parcelable {
         this.url = parcel.readString();
         this.order = new ArrayList<>();
         this.order = parcel.readArrayList(this.order.getClass().getClassLoader());
+    }
+
+    /**
+     * Remove a FlashCard from the set based on its Id.
+     * @param id the ID of the FlashCard to remove.
+     * @return the card removed, null if no card was found.
+     */
+    public FlashCard removeById(int id)
+    {
+        FlashCard removedCard = getById(id);
+        if (removedCard != null)
+            set.remove(removedCard);
+        return removedCard;
+    }
+
+    /**
+     * Get a FlashCard in the set based on its ID.
+     * @param id the ID of the FlashCard to retrieve.
+     * @return the card retrieved, null if not found.
+     */
+    public FlashCard getById(int id)
+    {
+        FlashCard[] cardArray = getSetArray();
+        FlashCard flashCard = null;
+        for (FlashCard aCardArray : cardArray) {
+            if (aCardArray.getId() == id) {
+                flashCard = aCardArray;
+                break;
+            }
+        }
+        return flashCard;
     }
 
 }

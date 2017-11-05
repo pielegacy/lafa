@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,8 +12,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +57,11 @@ public final class LAFA {
     private static final String STORAGE_URI_KEY = "uri";
 
     /**
+     * Defines the filename used by LAFA for saving resources locally.
+     */
+    private static final String FILE_NAME = "lafa.json";
+
+    /**
      * The GSON instance used by LAFA.
      * <p>
      * Statically instantiated as it is
@@ -62,6 +74,70 @@ public final class LAFA {
      * Static set of FlashSets used by the application.
      */
     private static ArrayList<FlashSet> appSets = new ArrayList<>();
+
+    /**
+     * Load a collection of FlashSet from the default LAFA save file.
+     *
+     * @param context The application Context used for File IO.
+     * @return the FlashSet data.
+     */
+    public static ArrayList<FlashSet> loadSetsFromFile(Context context) {
+        File file = new File(context.getFilesDir(), FILE_NAME);
+        try {
+            Boolean createdFile = file.createNewFile();
+            // Do not attempt to load the file if it didn't exist.
+            if (createdFile)
+                return appSets = new ArrayList<>();
+            else {
+                StringBuilder stringBuilder = new StringBuilder();
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                reader.close();
+
+                appSets = gson.fromJson(stringBuilder.toString() != "" ?
+                        stringBuilder.toString() : "[]",
+                        new TypeToken<ArrayList<FlashSet>>(){}.getType());
+                return appSets;
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(context,
+                    "Error loading from file, clear application data if this problem persists.",
+                    Toast.LENGTH_SHORT).show();
+            file.delete();
+            return appSets = new ArrayList<>();
+        }
+    }
+
+    /**
+     * Write the current contents of AppSets to file.
+     *
+     * @param context
+     */
+    public static void writeToFile(Context context) {
+        try {
+            FileOutputStream outputStream = null;
+            try {
+                outputStream = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+                outputStream.write(gson.toJson(appSets).getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (outputStream != null)
+                    outputStream.close();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(context,
+                    "Error writing to file, clear application data if this problem persists.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 
     /**
      * Create a new FlashCard from a JSON string
@@ -159,6 +235,57 @@ public final class LAFA {
     }
 
     /**
+     * Download a FlashSet from a remote store.
+     * @param context application context
+     * @param endpoint the endpoint to download the FlashSet from.
+     */
+    public static void downloadFlashSet(final Context context, final MainActivity activity, final String endpoint)
+    {
+        GetSet(endpoint, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Toast.makeText(
+                        context,
+                        "Failed to download FlashSet from " + endpoint,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try
+                {
+                    final FlashSet flashSet = gson.fromJson(response.body().string(), FlashSet.class);
+                    addFlashSet(flashSet);
+                    LAFA.writeToFile(context);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            activity.populateFlashSets();
+                            Toast.makeText(
+                                    context,
+                                    "Downloaded '" + flashSet.getName() + "'.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                catch (Exception e)
+                {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(
+                                    context,
+                                    "Error creating FlashSet from URL.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
+    /**
      * POST a FlashSet's JSON to the defined endpoint, return the URL.
      *
      * @param set      the FlashSet that is being posted
@@ -175,6 +302,31 @@ public final class LAFA {
                     .addHeader("content-type", "application/json")
                     .addHeader("cache-control", "no-cache")
                     .post(body)
+                    .build();
+
+            Call resCall = client.newCall(req);
+            resCall.enqueue(callback);
+
+        } catch (Exception e) {
+            Log.e("OkHTTP", e.getMessage());
+        }
+    }
+
+    /**
+     * Get a FlashSet from a JSON endpoint.
+     * @param endpoint the endpoint to query
+     * @param callback the function which is ran when the GET request is finished
+     */
+    private static void GetSet(String endpoint, Callback callback)
+    {
+        OkHttpClient client = new OkHttpClient();
+
+        try {
+            Request req = new Request.Builder()
+                    .url(endpoint)
+                    .addHeader("content-type", "application/json")
+                    .addHeader("cache-control", "no-cache")
+                    .get()
                     .build();
 
             Call resCall = client.newCall(req);
@@ -228,17 +380,16 @@ public final class LAFA {
      *
      * @param flashSet
      */
-    public static void addFlashSet(FlashSet flashSet)
-    {
+    public static void addFlashSet(FlashSet flashSet) {
         appSets.add(flashSet);
     }
 
     /**
      * Get the current state of the AppSet
+     *
      * @return
      */
-    public static ArrayList<FlashSet> getAppSets()
-    {
+    public static ArrayList<FlashSet> getAppSets() {
         return appSets;
     }
 }

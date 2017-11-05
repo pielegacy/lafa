@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <GridLayout style="@style/FormTriElementGrid"
+        android:layout_margin="?dialogPreferredPadding">
+
+        <TextView
+            style="@style/FormLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_data_endpoint" />
+
+        <EditText
+            android:id="@+id/editText_set_endpoint"
+            style="@style/FormTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/placeholder_uri"
+            android:inputType="textUri" />
+
+        <TextView
+            style="@style/FormDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_json_warning" />
+    </GridLayout>
+</LinearLayout>
