@@ -1,5 +1,8 @@
 package com.example.strik.lafa;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -49,9 +52,14 @@ public class ViewFlashSetActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_share:
-                Snackbar.make(findViewById(R.id.layout_flashset),
-                        "Uploading & Sharing FlashSet...", Snackbar.LENGTH_LONG).show();
-                LAFA.shareFlashSet(this, flashSet);
+                if (!isNetworkAvailable()) {
+                    Snackbar.make(findViewById(R.id.layout_flashset),
+                            "Uploading & Sharing FlashSet...", Snackbar.LENGTH_LONG).show();
+                    LAFA.shareFlashSet(this, flashSet);
+                } else
+                    Toast.makeText(this,
+                            "Unable to share FlashSet without an internet connection.",
+                            Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_item_shuffle:
                 flashSetManager.shuffleCards();
@@ -147,5 +155,17 @@ public class ViewFlashSetActivity extends AppCompatActivity {
         // Setup onTouchEvent for detecting type of touch gesture
         Sensey.getInstance().setupDispatchTouchEvent(event);
         return super.dispatchTouchEvent(event);
+    }
+
+    /**
+     * Use to check if device is connected to a data network.
+     *
+     * @return true if connected, false if not.
+     */
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

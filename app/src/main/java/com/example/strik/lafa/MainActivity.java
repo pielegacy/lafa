@@ -1,9 +1,13 @@
 package com.example.strik.lafa;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -36,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(navIntent);
                     }
                 });
+        if (!isNetworkAvailable())
+            Snackbar.make(findViewById(R.id.layout_output),
+                    "No internet connection, some features might be unavailable.",
+                    Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -52,20 +60,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.menu_item_download:
-                openDownloadDialog("");
+                if (isNetworkAvailable())
+                    openDownloadDialog("");
+                else
+                    Toast.makeText(this,
+                            "Unable to download FlashSets without an internet connection.",
+                            Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return false;
         }
     }
 
-    private void openDownloadDialog(String defaultUrl)
-    {
-        if (defaultUrl.isEmpty())
-        {
+    private void openDownloadDialog(String defaultUrl) {
+        if (defaultUrl.isEmpty()) {
             LayoutInflater inflater = getLayoutInflater();
             final View view = inflater.inflate(R.layout.dialog_download_flashset, null);
             AlertDialog dialog = new AlertDialog.Builder(this)
@@ -77,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
                             EditText editTextUrl = view.findViewById(R.id.editText_set_endpoint);
                             if (!editTextUrl.getText().toString().isEmpty())
                                 LAFA.downloadFlashSet(getApplicationContext(),
-                                    MainActivity.this,
-                                    editTextUrl.getText().toString());
+                                        MainActivity.this,
+                                        editTextUrl.getText().toString());
                             dialogInterface.dismiss();
                         }
                     })
@@ -110,11 +120,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewLibrary.setAdapter(flashSetRecyclerAdapterLibrary);
     }
 
-    private FlashSet dummyFlashSet() {
-        ArrayList<FlashCard> flashCards = new ArrayList<>();
-        flashCards.add(new FlashCard(0, "Q1", "A1"));
-        flashCards.add(new FlashCard(1, "Q2", "A2"));
-        flashCards.add(new FlashCard(2, "Q3", "A3"));
-        return new FlashSet(flashCards, "Test Flash Set");
+    /**
+     * Use to check if device is connected to a data network.
+     *
+     * @return true if connected, false if not.
+     */
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
