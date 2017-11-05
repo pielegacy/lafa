@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.strik.lafa.MainActivity">
 
-    <LinearLayout
+    <GridLayout
         android:id="@+id/layout_output"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -25,29 +25,35 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1">
+        tools:layout_constraintTop_creator="1"
+        android:rowCount="4">
 
         <TextView
             android:id="@+id/textView_heading_library"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/heading_library"
-            android:textSize="@dimen/textSizeHomeHeading" />
+            android:textSize="@dimen/textSizeHomeHeading"
+            android:layout_row="0"
+            android:layout_rowSpan="1"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView_library"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/listHomeHeight"
             android:orientation="horizontal"
-            android:scrollbarAlwaysDrawHorizontalTrack="true"
-            android:scrollbars="horizontal" />
 
-        <TextView
-            android:id="@+id/textView_heading_explore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/heading_explore"
-            android:textSize="@dimen/textSizeHomeHeading" />
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbars="vertical"
+            android:layout_row="1"
+            android:layout_rowSpan="3"
+            android:layout_height="match_parent" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView_heading_explore"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/heading_explore"-->
+            <!--android:textSize="@dimen/textSizeHomeHeading" />-->
 
         <!--<android.support.v7.widget.RecyclerView-->
         <!--android:scrollbars="horizontal"-->
@@ -55,7 +61,7 @@
         <!--android:id="@+id/recyclerView_explore"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="@dimen/listHomeHeight"/>-->
-    </LinearLayout>
+    </GridLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_home_add"

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -97,27 +98,16 @@ public class MainActivity extends AppCompatActivity {
      * Populate the FlashSet lists in the homepage
      */
     public void populateFlashSets() {
-        // Add a sample set if need be
-//        if (LAFA.getAppSets().size() == 0)
-//            LAFA.addFlashSet(dummyFlashSet());
         LAFA.loadSetsFromFile(this);
 
         RecyclerView recyclerViewLibrary = (RecyclerView) findViewById(R.id.recyclerView_library);
 
         FlashSetRecyclerAdapter flashSetRecyclerAdapterLibrary
                 = new FlashSetRecyclerAdapter(LAFA.getAppSets());
-        recyclerViewLibrary.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewLibrary.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         recyclerViewLibrary.setItemAnimator(new DefaultItemAnimator());
         recyclerViewLibrary.addItemDecoration(new FlashSetRecyclerDecoration());
         recyclerViewLibrary.setAdapter(flashSetRecyclerAdapterLibrary);
-//        RecyclerView recyclerViewExplore = (RecyclerView)findViewById(R.id.recyclerView_explore);
-//
-//        FlashSetRecyclerAdapter flashSetRecyclerAdapterExplore
-//                = new FlashSetRecyclerAdapter(arrayListFlashSet);
-//        recyclerViewExplore.setItemAnimator(new DefaultItemAnimator());
-//        recyclerViewExplore.addItemDecoration(new FlashSetRecyclerDecoration());
-//        recyclerViewExplore.setAdapter(flashSetRecyclerAdapterExplore);
     }
 
     private FlashSet dummyFlashSet() {

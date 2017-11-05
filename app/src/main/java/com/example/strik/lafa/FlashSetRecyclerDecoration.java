@@ -12,16 +12,15 @@ public class FlashSetRecyclerDecoration extends ItemDecoration {
     /**
      * Horizontal spacing between FlashSet elements
      */
-    final int MARGIN_HORIZONTAL = 10;
+    private final int MARGIN_HORIZONTAL = 5;
     /**
      * Vertical spacing between FlashSet elements
      */
-    final int MARGIN_VERTICAL = 10;
+    private final int MARGIN_VERTICAL = 20;
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         outRect.left = outRect.right = MARGIN_HORIZONTAL;
         outRect.top = outRect.bottom = MARGIN_VERTICAL;
-
     }
 }

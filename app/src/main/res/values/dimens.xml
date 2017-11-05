@@ -5,8 +5,8 @@
     <dimen name="widthCard">380dp</dimen>
     <dimen name="textSizeHomeHeading">28sp</dimen>
     <dimen name="listHomeHeight">160dp</dimen>
-    <dimen name="listHomeRowHeight">140dp</dimen>
-    <dimen name="listHomeRowWidth">120dp</dimen>
+    <dimen name="listHomeRowHeight">120dp</dimen>
+    <dimen name="listHomeRowWidth">150dp</dimen>
     <dimen name="flashSetListRowPadding">6dp</dimen>
     <dimen name="flashSetButtonListSpacing">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
