@@ -1,6 +1,7 @@
 package com.example.strik.lafa;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class ViewFlashSetActivity extends AppCompatActivity {
         Sensey.getInstance().startTouchTypeDetection(this, touchTypListener);
         setContentView(R.layout.activity_view_flash_set);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.DKGRAY);
         setSupportActionBar(toolbar);
         if (getIntent().getExtras().getParcelable("data") != null)
             loadFlashSet((FlashSet) getIntent().getExtras().getParcelable("data"));

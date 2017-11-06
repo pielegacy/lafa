@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.FloatingActionButton;
@@ -68,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this,
                             "Unable to download FlashSets without an internet connection.",
                             Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menu_item_settngs:
+                Intent navIntent = new Intent(this, SettingsActivity.class);
+                startActivity(navIntent);
                 return true;
             default:
                 return false;

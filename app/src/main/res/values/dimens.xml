@@ -12,4 +12,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="form_gridSpacing">20dp</dimen>
+
+    <dimen name="height_setting">40dp</dimen>
+    <dimen name="textsize_setting">20sp</dimen>
 </resources>

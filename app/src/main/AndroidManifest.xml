@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +15,8 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name=".MainActivity"/>
+                <action android:name=".MainActivity" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,7 +25,8 @@
             android:label="@string/title_activity_view_flash_set"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CreateFlashSetActivity" />
-        <activity android:name=".ModifyFlashSetActivity"></activity>
+        <activity android:name=".ModifyFlashSetActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

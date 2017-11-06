@@ -114,6 +114,27 @@ public final class LAFA {
     }
 
     /**
+     * Delete the LAFA application data file and reload the current appSet
+     * @param context an application context to use for File IO.
+     * @return the result of the file deletion.
+     */
+    public static boolean clearData(Context context)
+    {
+        File file = new File(context.getFilesDir(), FILE_NAME);
+        try
+        {
+            Boolean isDeleted = file.delete();
+            if (isDeleted)
+                loadSetsFromFile(context);
+            return isDeleted;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
+    /**
      * Write the current contents of AppSets to file.
      *
      * @param context

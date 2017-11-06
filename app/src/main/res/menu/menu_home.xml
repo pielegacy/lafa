@@ -5,4 +5,8 @@
         android:title="@string/menu_label_download"
         android:icon="@drawable/ic_download"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_item_settngs"
+        android:title="@string/menu_item_settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="never"/>
 </menu>
