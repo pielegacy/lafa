@@ -54,7 +54,7 @@ public class ViewFlashSetActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_share:
-                if (!isNetworkAvailable()) {
+                if (isNetworkAvailable()) {
                     Snackbar.make(findViewById(R.id.layout_flashset),
                             "Uploading & Sharing FlashSet...", Snackbar.LENGTH_LONG).show();
                     LAFA.shareFlashSet(this, flashSet);
